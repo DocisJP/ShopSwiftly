@@ -112,4 +112,8 @@ replay_pid*
 .history
 .ionide
 
+# Me olvide de agregar el .env
+.env
+.project
 # End of https://www.toptal.com/developers/gitignore/api/eclipse,java,visualstudiocode
+
