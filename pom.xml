@@ -13,6 +13,7 @@
         <spring-boot.version>2.7.18</spring-boot.version>
         <spring-cloud.version>2021.0.3</spring-cloud.version>
         <dockerfile.maven.plugin.version>1.4.13</dockerfile.maven.plugin.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencyManagement>

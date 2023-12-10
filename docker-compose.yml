@@ -1,16 +1,30 @@
 version: "3.8"
 
 services:
+  eureka-server:
+    build:
+      context: ./eureka-server
+      dockerfile: src/main/docker/Dockerfile
+    image: eureka-server:latest
+    restart: always
+    ports:
+      - "8761:8761"
+    networks:
+      - backend-network
+
   user-service:
     build:
       context: ./user-service
       dockerfile: src/main/docker/Dockerfile
+    image: user-service:latest
     restart: always
     ports:
       - "8084:8084"
     depends_on:
+      - eureka-server
       - user_db
     environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
       - SPRING_DATASOURCE_URL=jdbc:mysql://user_db:3306/${MYSQL_DATABASE_USERS}?allowPublicKeyRetrieval=true&useSSL=false&useTimezone=true&serverTimezone=GMT&characterEncoding=UTF-8
     networks:
       - backend-network
@@ -28,6 +42,9 @@ services:
     networks:
       - backend-network
 
+networks:
+  backend-network:
+    driver: bridge
 # Uncomment and configure these services when they are ready
 # product-service:
 #   build:
@@ -122,6 +139,3 @@ services:
 #   networks:
 #     - backend-network
 
-networks:
-  backend-network:
-    driver: bridge

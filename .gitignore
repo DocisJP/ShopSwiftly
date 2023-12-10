@@ -115,5 +115,16 @@ replay_pid*
 # Me olvide de agregar el .env
 .env
 .project
-# End of https://www.toptal.com/developers/gitignore/api/eclipse,java,visualstudiocode
 
+
+target/
+
+### NetBeans ###
+**/nbproject/private/
+**/nbproject/Makefile-*.mk
+**/nbproject/Package-*.bash
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/

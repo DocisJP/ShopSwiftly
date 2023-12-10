@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: user-service
   main:
     show-banner: false
   server:
@@ -53,4 +55,3 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
-
