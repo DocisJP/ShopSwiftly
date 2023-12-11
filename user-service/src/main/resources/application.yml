@@ -6,29 +6,24 @@ spring:
   server:
     port: ${SERVER_PORT:8084}
   datasource:
-    url: ${SPRING_DATASOURCE_URL}
-    username: ${MYSQL_USER}
-    password: ${MYSQL_PASSWORD}
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:postgresql://user_db:5432/ShopSwiftly # Use the Docker Compose service name
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: update
-      dialect: org.hibernate.dialect.MySQL8Dialect
+      dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
     properties:
       hibernate:
+        default_schema: users_db # Assuming you want to use the 'users_db' schema
         format_sql: true
         use_sql_comments: true
-        jdbc:
-          time_zone: UTC
-    generate-ddl: true
-    database-platform: org.hibernate.dialect.MySQL8Dialect
-  thymeleaf:
-    cache: false
   security:
     user:
-      name: ${SECURITY_USER_NAME:user} # Default to 'user' if not set
-      password: ${SECURITY_USER_PASSWORD:password} # Default to 'password' if not set
+      name: ${SECURITY_USER_NAME:user}
+      password: ${SECURITY_USER_PASSWORD:password}
 debug: true
 
 logging:
@@ -53,4 +48,4 @@ management:
 eureka:
   client:
     serviceUrl:
-      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka/}
+      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka/} # Use the Docker Compose service name

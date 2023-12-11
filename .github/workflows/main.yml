@@ -33,11 +33,10 @@ jobs:
           docker-compose -f docker-compose.yml build
           docker-compose -f docker-compose.yml push
         env:
-          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
-          MYSQL DATABASE USERS: ${{ secrets.MYSQL_DATABASE_USERS }}
-          MYSQL USER: ${{ secrets.MYSQL_USER }}
-          MYSQL PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
-          # Add other environment variables as necessary
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          EUREKA_SERVER_URL: ${{ secrets.EUREKA_SERVER_URL }} # If needed
 
       # Error Handling: Echo a message if any of the previous steps failed
       - name: Error Handling
