@@ -1,7 +1,20 @@
 #!/bin/bash
 
-# Configuration for Eureka
-eureka_url="http://eureka-server:8761"
+# Determine the environment - default to 'local' if ENVIRONMENT is not set
+ENVIRONMENT=${ENVIRONMENT:-local}
+
+# Configuration for Eureka based on the environment
+if [ "$ENVIRONMENT" == "local" ]; then
+    eureka_url="http://eureka-server:8761"
+    db_host="user_db"  # Use the Docker Compose service name for PostgreSQL
+    db_port="5432"         # Default PostgreSQL port
+else
+    # Use environment variables set in Render for cloud deployment
+    eureka_url="${EUREKA_SERVER_URL}"
+    db_host="${POSTGRES_HOST}"  # These should match the environment variables you set for PostgreSQL
+    db_port="${POSTGRES_PORT}"
+fi
+
 max_attempts=15
 attempt_interval=5
 
@@ -31,13 +44,13 @@ until check_eureka; do
   attempt=$(( attempt + 1 ))
 done
 
-# Wait for MySQL to be up
-echo "Waiting for MySQL..."
-until nc -z user_db 3306; do
+# Wait for PostgreSQL to be up
+echo "Waiting for PostgreSQL..."
+until nc -z ${db_host} ${db_port}; do
     sleep 10
 done
-echo "MySQL is up!"
+echo "PostgreSQL is up!"
 
-# Now that both Eureka and MySQL are up, execute the command
+# Now that both Eureka and PostgreSQL are up, execute the command
 echo "Executing command..."
 exec $cmd

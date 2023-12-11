@@ -2,7 +2,7 @@
 FROM openjdk:17-jdk-slim
 
 # Update package list, install netcat and mysql-client, and clean up
-RUN apt-get update && apt-get install -y netcat default-mysql-client curl && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y netcat curl && rm -rf /var/lib/apt/lists/*
 
 # Create a volume pointing to /tmp
 VOLUME /tmp
