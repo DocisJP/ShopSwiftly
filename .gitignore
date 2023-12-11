@@ -114,6 +114,8 @@ replay_pid*
 
 # Me olvide de agregar el .env
 .env
+.env.dev
+.env.prod
 .project
 
 

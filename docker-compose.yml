@@ -25,7 +25,7 @@ services:
       - user_db
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
-      SPRING_DATASOURCE_URL: jdbc:postgresql://user_db:5432/ShopSwiftly
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     networks:

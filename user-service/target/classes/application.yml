@@ -48,4 +48,4 @@ management:
 eureka:
   client:
     serviceUrl:
-      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka/} # Use the Docker Compose service name
+      defaultZone: ${EUREKA_SERVER_URL} # Use the Docker Compose service name
