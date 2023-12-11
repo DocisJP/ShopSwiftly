@@ -7,12 +7,18 @@ ENVIRONMENT=${ENVIRONMENT:-local}
 if [ "$ENVIRONMENT" == "local" ]; then
     eureka_url="http://eureka-server:8761"
     db_host="user_db"  # Use the Docker Compose service name for PostgreSQL
-    db_port="5432"         # Default PostgreSQL port
+    db_port="5432"     # Default PostgreSQL port
 else
     # Use environment variables set in Render for cloud deployment
     eureka_url="${EUREKA_SERVER_URL}"
-    db_host="${POSTGRES_HOST}"  # These should match the environment variables you set for PostgreSQL
-    db_port="${POSTGRES_PORT}"
+    # Parse database URL from Render's external database URL
+    # Assumes format: postgres://<username>:<password>@<host>/<dbname>
+    db_url="${DATABASE_URL}"
+    db_host=$(echo $db_url | cut -d '@' -f 2 | cut -d '/' -f 1)
+    db_port="5432"  # Default PostgreSQL port
+    # Extract the username and password from the URL
+    db_user=$(echo $db_url | cut -d '/' -f 3 | cut -d ':' -f 1)
+    db_pass=$(echo $db_url | cut -d ':' -f 3 | cut -d '@' -f 1)
 fi
 
 max_attempts=15
