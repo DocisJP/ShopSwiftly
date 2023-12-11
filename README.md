@@ -1,6 +1,7 @@
 # ShopSwiftly
 
 An ecommerce with microservices architecutre for the backend.
+Un ecommerce con una arquitectura de microservicios para el backend. 
 
 ### Info:
 
@@ -12,14 +13,16 @@ Fue adaptado para ser levantado en Render.
 Ir al directorio root, donde se ubica el docker-compose y el pom.xml
 Setear tu .env (con las variables de entorno que vas a utilizar)
 
-1)Arrancar
-
-- mvn clean package
+1. Arrancar
+```bash
+ mvn clean package 
+```
   Una vez que se compilen los paquetes
 
-  2)Para crear la imagen y levantar:
-
-- docker-compose up --build
+2. Para crear la imagen y levantar:
+```bash
+docker-compose up --build
+```
 
 Con esto (Si tenes todo instalado) debería funcionar localmente.
 
@@ -33,9 +36,15 @@ En este caso, como tenemos dos perfiles, serán dos .env files.
 En uno de ellos vamos a poner las variables de entorno locales, y en el otro las variables remotas.
 Para ejecutar una o la otra utilizamos el CLI:
 
-- mvn clean package
-- docker-compose --env-file .env.dev up (para el perfil de dev)
-- docker-compose --env-file .env.prod up (para el perfil de prod)
+```bash
+ mvn clean package 
+```
+```bash
+docker-compose --env-file .env.dev up (para el perfil de dev)
+```
+```bash
+docker-compose --env-file .env.prod up (para el perfil de prod)
+```
 
 Con eso ya deberían tener las diferentes configuraciónes disponibles en su entorno de trabajo.
 
