@@ -48,5 +48,24 @@
         <!-- Agregar otros módulos aquí -->
     </modules>
 
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <spring.profiles.active>dev</spring.profiles.active>
+            </properties>
+            <!-- Other configuration specific to development -->
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <spring.profiles.active>prod</spring.profiles.active>
+            </properties>
+            <!-- Other configuration specific to production -->
+        </profile>
+    </profiles>
     
 </project>
