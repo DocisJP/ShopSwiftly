@@ -17,7 +17,7 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests((authz) -> authz
-                        .antMatchers("/", "/swagger-ui.html/**", "/swagger-ui/**", "/v3/api-docs/**", "/actuator/**", "/users/**").permitAll()
+                        .antMatchers("/", "/swagger-ui.html/**", "/swagger-ui/**", "/v3/api-docs/**", "/actuator/**", "/products/**", "/lines/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(); // Or use formLogin(), jwt() for a more advanced configuration
