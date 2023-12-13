@@ -44,7 +44,9 @@ services:
     networks:
       - backend-network
 
+  services:
   product-service:
+    <<: *common-env
     build:
       context: ./product-service
       dockerfile: src/main/docker/Dockerfile
@@ -55,23 +57,15 @@ services:
     depends_on:
       - eureka-server
       - product_db
-    environment:
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
-      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     networks:
       - backend-network
 
   product_db:
+    <<: *common-env
     image: "postgres:latest"
     restart: always
     ports:
       - "5432:5432"
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./initdb/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
