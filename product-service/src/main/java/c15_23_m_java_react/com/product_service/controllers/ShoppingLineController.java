@@ -10,7 +10,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/line")
+@RequestMapping("/lines")
 public class ShoppingLineController {
 
     @Autowired

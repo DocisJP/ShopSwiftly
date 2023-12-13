@@ -29,25 +29,35 @@ public class ShoppingLineService {
     }
 
     public void increaseQuantity(Long lineID){
+        try {
+            ShoppingLine shoppingLine = shoppingLineRepository.findById(lineID).get();
 
-        ShoppingLine shoppingLine = shoppingLineRepository.findById(lineID).get();
+            Integer quantity = shoppingLine.getQuantity();
 
-        Integer quantity = shoppingLine.getQuantity();
+            //TODO: hacer comprobación de que no supere el stock
+            quantity += 1;
+            shoppingLine.setQuantity(quantity);
 
-        //TODO: hacer comprobación de que no supere el stock
-        quantity += 1;
-        shoppingLine.setQuantity(quantity);
-
+            shoppingLineRepository.save(shoppingLine);
+        }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
     }
 
     public void reduceQuantity(Long lineID) {
-        ShoppingLine shoppingLine = shoppingLineRepository.findById(lineID).get();
-        Integer quantity = shoppingLine.getQuantity();
+        try {
+            ShoppingLine shoppingLine = shoppingLineRepository.findById(lineID).get();
+            Integer quantity = shoppingLine.getQuantity();
 
-        //Para evitar que vaya a numeros negativos
-        if (quantity > 0){
-            quantity -= 1;
-            shoppingLine.setQuantity(quantity);
+            //Para evitar que vaya a numeros negativos
+            if (quantity > 0) {
+                quantity -= 1;
+                shoppingLine.setQuantity(quantity);
+            }
+
+            shoppingLineRepository.save(shoppingLine);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
         }
     }
 

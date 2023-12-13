@@ -11,23 +11,16 @@ public class ShoppingLine {
     @Column(name = "line_id")
     private Long lineID;
 
-
-    //Indico a que usuario le pertenece
-    //El carro de compras se obtiene obteniendo todas las shopping lines que tengan el id del usuario que las pide
     private Long userID;
 
     //TODO: Realizar relación a producto - Una ShoppingLine tiene un producto - Un producto puede estar en muchas ShoppingLines
-    //private Product product;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     private Integer quantity;
 
     public ShoppingLine() {
-    }
-
-    public ShoppingLine(Long lineID, Long userID, Integer quantity) {
-        this.lineID = lineID;
-        this.userID = userID;
-        this.quantity = quantity;
     }
 
     public Long getLineID() {
@@ -44,6 +37,14 @@ public class ShoppingLine {
 
     public void setUserID(Long userID) {
         this.userID = userID;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public Integer getQuantity() {

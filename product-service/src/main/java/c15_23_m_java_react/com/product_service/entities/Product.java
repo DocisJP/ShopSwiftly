@@ -1,7 +1,10 @@
 package c15_23_m_java_react.com.product_service.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 @Entity
 @Table(name="products")
@@ -45,6 +48,10 @@ public class Product {
     private Double width;
 
     //TODO: {private String imageLink} Buscar una forma de almacenar el link de una imagen
+
+    @Column(length = 750)
+    private String imageLink;
+
 
     public Product() {
     }
@@ -135,5 +142,13 @@ public class Product {
 
     public void setWidth(Double width) {
         this.width = width;
+    }
+
+    public String getImageLink() {
+        return imageLink;
+    }
+
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
     }
 }
