@@ -10,7 +10,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.reactive.CorsWebFilter;
 
 @Configuration
-public class GateWayConfig {
+public class GatewayConfig {
 
     @Value("${user-service.url}")
     private String userServiceURL;
