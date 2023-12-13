@@ -12,7 +12,7 @@ if [ -n "$RENDER" ]; then
 else
     # Configuration for Eureka based on the environment
     eureka_url="http://eureka-server:8761"
-    db_host="user_db"  # Use the Docker Compose service name for PostgreSQL
+    db_host="shopswiftly_db"  # Use the Docker Compose service name for PostgreSQL
     db_port="5432"     # Default PostgreSQL port
 
     max_attempts=15

@@ -15,16 +15,20 @@ public class GateWayConfig {
     @Value("${user-service.url}")
     private String userServiceURL;
 
-    /* @Value("${product-service.url}")
-    private String productServiceURL; */
+    
+    @Value("${product-service.url}")
+    private String productServiceURL; 
+    
 
     @Bean
     RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()
                 .route("user_route", r -> r.path("/users/**")
                         .uri(userServiceURL)) 
-                /* .route("product_route", r -> r.path("/products/**") 
-                        .uri(productServiceURL))  */
+                
+                        .route("product_route", r -> r.path("/products/**") 
+                        .uri(productServiceURL))  
+                        
                 // ... other routes for each microservice
                 .build();
     }
