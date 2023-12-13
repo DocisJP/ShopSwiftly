@@ -6,7 +6,7 @@ spring:
   server:
     port: ${SERVER_PORT:8084}
   datasource:
-    url: jdbc:postgresql://user_db:5432/ShopSwiftly # Use the Docker Compose service name
+    url: ${SPRING_DATASOURCE_URL}
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
@@ -17,7 +17,7 @@ spring:
     show-sql: true
     properties:
       hibernate:
-        default_schema: users_db # Assuming you want to use the 'users_db' schema
+        default_schema: users_db
         format_sql: true
         use_sql_comments: true
   security:
@@ -48,4 +48,4 @@ management:
 eureka:
   client:
     serviceUrl:
-      defaultZone: ${EUREKA_SERVER_URL} # Use the Docker Compose service name
+      defaultZone: ${EUREKA_SERVER_URL}
