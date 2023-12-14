@@ -14,7 +14,7 @@ public class ShoppingLine {
     private Long userID;
 
     //TODO: Realizar relación a producto - Una ShoppingLine tiene un producto - Un producto puede estar en muchas ShoppingLines
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "product_id")
     private Product product;
 

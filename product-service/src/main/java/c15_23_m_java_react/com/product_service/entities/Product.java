@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -51,6 +52,7 @@ public class Product {
 
     @Column(length = 750)
     private String imageLink;
+
 
 
     public Product() {

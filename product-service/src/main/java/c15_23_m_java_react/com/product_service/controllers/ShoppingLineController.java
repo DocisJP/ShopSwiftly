@@ -1,5 +1,6 @@
 package c15_23_m_java_react.com.product_service.controllers;
 
+import c15_23_m_java_react.com.product_service.dtos.ShoppingLineDTO;
 import c15_23_m_java_react.com.product_service.entities.ShoppingLine;
 import c15_23_m_java_react.com.product_service.services.ShoppingLineService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,27 +19,32 @@ public class ShoppingLineController {
 
 
     @GetMapping(path = "/{userID}")
-    public ResponseEntity<List<ShoppingLine>> getAllShoppingLinesByUserID(@PathVariable Long userID){
+    public ResponseEntity<?> getAllShoppingLinesByUserID(@PathVariable Long userID){
         return shoppingLineService.getAllShoppingLinesByUserID(userID);
     }
 
     @PostMapping(path = "/")
-    public ResponseEntity<ShoppingLine> createShoppingLine(@RequestBody ShoppingLine shoppingLine){
-        return shoppingLineService.createShoppingLine(shoppingLine);
+    public ResponseEntity<ShoppingLine> createShoppingLine(@RequestBody ShoppingLineDTO shoppingLineDTO){
+        return shoppingLineService.createShoppingLine(shoppingLineDTO);
     }
 
     @PostMapping(path = "/increase/{lineID}")
-    public void increaseQuantity(@PathVariable Long lineID){
-        shoppingLineService.increaseQuantity(lineID);
+    public ResponseEntity<String> increaseQuantity(@PathVariable Long lineID){
+        return shoppingLineService.increaseQuantity(lineID);
     }
 
     @PostMapping(path = "/reduce/{lineID}")
-    public void reduceQuantity(@PathVariable Long lineID){
-        shoppingLineService.reduceQuantity(lineID);
+    public ResponseEntity<String> reduceQuantity(@PathVariable Long lineID){
+        return shoppingLineService.reduceQuantity(lineID);
     }
 
     @GetMapping(path = "/")
     public List<ShoppingLine> getAllShoppingLines(){
         return shoppingLineService.getAllShoppingLines();
+    }
+
+    @DeleteMapping(path = "/{lineID}")
+    public ResponseEntity<String> deleteShoppingLineById(@PathVariable Long lineID){
+        return shoppingLineService.deleteShoppingLineById(lineID);
     }
 }
