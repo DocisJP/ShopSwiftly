@@ -30,16 +30,14 @@ jobs:
 
       - name: Build and push Docker images with Docker Compose
         run: |
-          docker-compose -f docker-compose.yml build
-          docker-compose -f docker-compose.yml push
+          docker-compose -f docker-compose.prod.yml build
+          docker-compose -f docker-compose.prod.yml push
         env:
           POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-          # Additional environment variables for different schemas
           SPRING_DATASOURCE_URL_USERSDB: ${{ secrets.SPRING_DATASOURCE_URL_USERSDB }}
           SPRING_DATASOURCE_URL_PRODUCTSDB: ${{ secrets.SPRING_DATASOURCE_URL_PRODUCTSDB }}
-          # SPRING_DATASOURCE_URL_TRANSACTIONSDB: ${{ secrets.SPRING_DATASOURCE_URL_TRANSACTIONSDB }}
           EUREKA_SERVER_URL: ${{ secrets.EUREKA_SERVER_URL }}
 
       # Error Handling: Echo a message if any of the previous steps failed
