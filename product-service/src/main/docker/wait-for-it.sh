@@ -12,9 +12,9 @@ if [ -n "$RENDER" ]; then
 else
     # Configuration for Eureka based on the environment
     eureka_url="http://eureka-server:8761"
-    db_host="product_db"  # Use the Docker Compose service name for PostgreSQL
+    db_host="shopswiftly_db"  # Use the Docker Compose service name for PostgreSQL
     db_port="5432"     # Default PostgreSQL port
-
+    echo "Checking the db_host: ${db_host} after it was assigned."
     max_attempts=15
     attempt_interval=5
 
@@ -31,6 +31,7 @@ else
     }
 
     # Wait for Eureka server to be available
+    echo "db_host check: ${db_host} after the first Euerka check."
     echo "Waiting for Eureka server to be available..."
     attempt=1
     until check_eureka; do
@@ -46,6 +47,7 @@ else
 
     # Wait for PostgreSQL to be up
     echo "Waiting for PostgreSQL..."
+    echo "db_host check: ${db_host} after the PostgresSQL check."
     until nc -z ${db_host} ${db_port}; do
         sleep 10
     done
@@ -53,5 +55,6 @@ else
 
     # Now that both Eureka and PostgreSQL are up, execute the command
     echo "Executing command..."
+    echo "db_host check: ${db_host} after the PostgresSQL check has been passed"
     exec java -Djava.security.egd=file:/dev/./urandom -Xms512m -Xmx1g -jar /opt/product-service/app.jar
 fi
