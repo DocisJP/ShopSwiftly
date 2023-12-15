@@ -26,5 +26,5 @@ EXPOSE 8085
 WORKDIR /opt/transaction-service/
 
 # Configure the container to run the application
-ENTRYPOINT ["/wait-for-it.sh", "transactions_db:3306", "--"]
-CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-Xms512m", "-Xmx1g", "-jar", "app.jar"]
+ENTRYPOINT ["/bin/sh", "-c", "/wait-for-it.sh && java -Djava.security.egd=file:/dev/./urandom -Xms512m -Xmx1g -jar /opt/transaction-service/app.jar"]
+CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-Xms512m", "-Xmx1g", "-jar", "/opt/transaction-service/app.jar"]
