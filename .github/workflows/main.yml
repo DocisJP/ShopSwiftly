@@ -38,6 +38,7 @@ jobs:
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
           SPRING_DATASOURCE_URL_USERSDB: ${{ secrets.SPRING_DATASOURCE_URL_USERSDB }}
           SPRING_DATASOURCE_URL_PRODUCTSDB: ${{ secrets.SPRING_DATASOURCE_URL_PRODUCTSDB }}
+          SPRING_DATASOURCE_URL_TRANSACTIONSDB: ${{ secrets.SPRING_DATASOURCE_URL_TRANSACTIONSDB }}
           EUREKA_SERVER_URL: ${{ secrets.EUREKA_SERVER_URL }}
 
       # Error Handling: Echo a message if any of the previous steps failed
