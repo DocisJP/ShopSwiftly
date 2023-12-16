@@ -1,63 +1,106 @@
 
 package c15_23_m_java_react.com.transaction_service.transactionService;
 
+
 import c15_23_m_java_react.com.transaction_service.dtos.ProductDto;
+import c15_23_m_java_react.com.transaction_service.dtos.TransactionDto;
+import c15_23_m_java_react.com.transaction_service.dtos.TransactionItemDto;
 import c15_23_m_java_react.com.transaction_service.dtos.UserDto;
 import c15_23_m_java_react.com.transaction_service.entitys.TransactionEntity;
-import c15_23_m_java_react.com.transaction_service.exception.ProductNotFoundException;
+import c15_23_m_java_react.com.transaction_service.entitys.TransactionItem;
 import c15_23_m_java_react.com.transaction_service.exception.UserNotFoundException;
 import c15_23_m_java_react.com.transaction_service.repository.TransactionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
 public class TransactionService {
-   
-	@Autowired
-    private TransactionRepository transactionRepository;
 
-    @Autowired
-    private ProductService productService;
+    private final TransactionRepository transactionRepository;
+    private final ProductService productService;
+    private final UserService userService;
+    private final ModelMapper modelMapper; 
 
-    @Autowired
-    private UserService userService;
+    public TransactionService(TransactionRepository transactionRepository,
+                              ProductService productService,
+                              UserService userService,
+                              ModelMapper modelMapper) { 
+        this.transactionRepository = transactionRepository;
+        this.productService = productService;
+        this.userService = userService;
+        this.modelMapper = modelMapper;
+    }
 
-    private void updateTransactionDetails(TransactionEntity transaction) {
-        ProductDto product = productService.getProductDto(transaction.getProductId());
+    @Transactional
+    public TransactionEntity createTransaction(TransactionDto transactionDto) {
+        TransactionEntity transactionEntity = convertToEntity(transactionDto);
+        updateTransactionDetails(transactionEntity, transactionDto.getItemDtos());
+        return transactionRepository.save(transactionEntity);
+    }
+
+    private TransactionEntity convertToEntity(TransactionDto transactionDto) {
+        TransactionEntity transactionEntity = modelMapper.map(transactionDto, TransactionEntity.class);
+
+        if (transactionDto.getItemDtos() != null) {
+            List<TransactionItem> transactionItems = transactionDto.getItemDtos().stream()
+                .map(itemDto -> {
+                    TransactionItem item = modelMapper.map(itemDto, TransactionItem.class);
+                    item.setTransaction(transactionEntity);
+                    // You may need to fetch and set additional details about the product here
+                    return item;
+                }).collect(Collectors.toList());
+            transactionEntity.setItems(transactionItems); 
+        }
+
+        return transactionEntity;
+    }
+    
+    
+
+    private List<TransactionItem> convertItemDtosToItems(List<TransactionItemDto> itemDtos, TransactionEntity transaction) {
+        return itemDtos.stream()
+                .map(itemDto -> {
+                    ProductDto product = productService.getProductDto(itemDto.getProductId());
+                    TransactionItem item = new TransactionItem();
+                    item.setTransaction(transaction);
+                    item.setProductId(itemDto.getProductId());
+                    item.setQuantity(itemDto.getQuantity());
+                    item.setPrice(product.getPrice()); 
+                    return item;
+                })
+                .collect(Collectors.toList());
+    }
+
+    private void updateTransactionDetails(TransactionEntity transaction, List<TransactionItemDto> itemDtos) {
         UserDto user = userService.getUserDto(transaction.getUser_id());
-
-        if (product == null) {
-            throw new ProductNotFoundException("Producto no encontrado con ID: " + transaction.getProductId());
-        }
-
         if (user == null) {
-            throw new UserNotFoundException("User no encontrado con ID: " + transaction.getUser_id());
+            throw new UserNotFoundException("User not found with ID: " + transaction.getUser_id());
         }
-
-        // Update transaction with product details
-        transaction.setProductName(product.getName());
-        transaction.setProductPrice(product.getPrice());
-        transaction.setProductDiscount(product.getDiscount());
-
-        // Update transaction with user details
         transaction.setUserUsername(user.getUsername());
         transaction.setUserEmail(user.getEmail());
 
-        // ... any other fields if the need arises.
+        // If updating an existing transaction, clear previous items
+        if (!transaction.getItems().isEmpty()) {
+            transaction.getItems().clear();
+        }
+
+        List<TransactionItem> transactionItems = convertItemDtosToItems(itemDtos, transaction);
+        transaction.getItems().addAll(transactionItems); // Add all new items to the transaction
     }
     
-    public TransactionEntity createTransaction(TransactionEntity transaction) {
-        updateTransactionDetails(transaction);
-        return transactionRepository.save(transaction);
-    }
 
     public TransactionEntity findById(Long id) {
         return transactionRepository.findById(id).orElse(null);
     }
 
-    public TransactionEntity updateTransaction(TransactionEntity transaction) {
-        updateTransactionDetails(transaction);
+    public TransactionEntity updateTransaction(TransactionEntity transaction, List<TransactionItemDto> itemDtos) {
+        updateTransactionDetails(transaction, itemDtos);
         return transactionRepository.save(transaction);
     }
 

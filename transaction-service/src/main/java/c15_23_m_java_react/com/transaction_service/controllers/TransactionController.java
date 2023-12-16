@@ -3,8 +3,16 @@ package c15_23_m_java_react.com.transaction_service.controllers;
 
 
 import c15_23_m_java_react.com.transaction_service.transactionService.TransactionService;
+
+import c15_23_m_java_react.com.transaction_service.dtos.TransactionDto;
+import c15_23_m_java_react.com.transaction_service.dtos.TransactionItemDto;
 import c15_23_m_java_react.com.transaction_service.entitys.TransactionEntity;
-import javax.validation.Valid;
+
+import java.util.List;
+
+
+
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,17 +35,32 @@ public class TransactionController {
 	@Autowired
 	private TransactionService transactionService;
 
+    @Autowired
+    private ModelMapper modelMapper; 
+
+    
     @PostMapping
-    public ResponseEntity<TransactionEntity> createTransaction(@Valid @RequestBody TransactionEntity transaction){
-        TransactionEntity newTransaction = transactionService.createTransaction(transaction);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newTransaction);
+    public ResponseEntity<TransactionEntity> createTransaction(@RequestBody TransactionDto transactionDto) {
+        TransactionEntity createdTransaction = transactionService.createTransaction(transactionDto);
+        return new ResponseEntity<>(createdTransaction, HttpStatus.CREATED);
+    }
+
+    private TransactionEntity convertToEntity(TransactionDto transactionDto) {
+        TransactionEntity transactionEntity = modelMapper.map(transactionDto, TransactionEntity.class);
+        // Set items or other complex mappings can go here
+        return transactionEntity;
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TransactionEntity> updateTransaction(@PathVariable Long id, @RequestBody TransactionEntity transaction){
-        transaction.setId(id);
-        TransactionEntity updateTransaction = transactionService.updateTransaction(transaction);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(updateTransaction);
+    public ResponseEntity<TransactionEntity> updateTransaction(@PathVariable Long id, @RequestBody TransactionDto transactionDto){
+        // Convert TransactionDto to TransactionEntity and retrieve itemDtos
+        TransactionEntity transactionEntity = convertToEntity(transactionDto);
+        transactionEntity.setId(id); // Set the id to the transactionEntity
+        List<TransactionItemDto> itemDtos = transactionDto.getItemDtos();
+        
+        // Pass the TransactionEntity and itemDtos to the service layer for updating
+        TransactionEntity updatedTransaction = transactionService.updateTransaction(transactionEntity, itemDtos);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(updatedTransaction);
     }
 
     @DeleteMapping("/{id}")

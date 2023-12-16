@@ -1,7 +1,7 @@
 package c15_23_m_java_react.com.product_service.entities;
 
 import javax.persistence.*;
-import java.util.Set;
+
 
 @Entity
 @Table(name = "shopping_line")

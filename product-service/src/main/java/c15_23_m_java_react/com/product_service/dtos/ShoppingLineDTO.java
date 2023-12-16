@@ -1,10 +1,5 @@
 package c15_23_m_java_react.com.product_service.dtos;
 
-import c15_23_m_java_react.com.product_service.entities.Product;
-import c15_23_m_java_react.com.product_service.entities.ShoppingLine;
-
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 public class ShoppingLineDTO {
     private Long userID;
