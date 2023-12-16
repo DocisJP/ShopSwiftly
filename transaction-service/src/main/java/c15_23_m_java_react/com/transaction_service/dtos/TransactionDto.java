@@ -1,13 +1,15 @@
 
 package c15_23_m_java_react.com.transaction_service.dtos;
 
-
+import java.util.List;
 
 public class TransactionDto {
 
     private ProductDto productoDto;
 
     private UserDto userDto;
+
+    private List<TransactionItemDto> itemDtos;
 
     public ProductDto getProductoDto() {
         return this.productoDto;
@@ -24,6 +26,24 @@ public class TransactionDto {
     public void setProductoDto(UserDto userDto) {
         this.userDto = userDto;
     }
+
+
+    public UserDto getUserDto() {
+        return this.userDto;
+    }
+
+    public void setUserDto(UserDto userDto) {
+        this.userDto = userDto;
+    }
+
+    public List<TransactionItemDto> getItemDtos() {
+        return this.itemDtos;
+    }
+
+    public void setItemDtos(List<TransactionItemDto> itemDtos) {
+        this.itemDtos = itemDtos;
+    }
+
 }
 
 

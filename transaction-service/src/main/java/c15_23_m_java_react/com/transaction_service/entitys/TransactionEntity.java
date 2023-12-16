@@ -1,11 +1,16 @@
 
 package c15_23_m_java_react.com.transaction_service.entitys;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,14 +30,6 @@ public class TransactionEntity {
 
 	private String userEmail;
 
-	private String productName;
-
-	private Double productPrice;
-	
-	private Double productDiscount;
-
-	private Long productId;
-
 	private Double montoTotal;
 	
 	private Double impuestos;
@@ -44,7 +41,8 @@ public class TransactionEntity {
 	
 	private Boolean estado;
 
-
+	@OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL)
+	private List <TransactionItem> items = new ArrayList<>();
 
 
 	public Long getId() {
@@ -79,37 +77,6 @@ public class TransactionEntity {
 		this.userEmail = userEmail;
 	}
 
-	public String getProductName() {
-		return this.productName;
-	}
-
-	public void setProductName(String productName) {
-		this.productName = productName;
-	}
-
-	public Double getProductPrice() {
-		return this.productPrice;
-	}
-
-	public void setProductPrice(Double productPrice) {
-		this.productPrice = productPrice;
-	}
-
-	public Double getProductDiscount() {
-		return this.productDiscount;
-	}
-
-	public void setProductDiscount(Double productDiscount) {
-		this.productDiscount = productDiscount;
-	}
-
-	public Long getProductId() {
-		return this.productId;
-	}
-
-	public void setProductId(Long productId) {
-		this.productId = productId;
-	}
 
 	public Double getMontoTotal() {
 		return this.montoTotal;
@@ -155,5 +122,20 @@ public class TransactionEntity {
 		this.estado = estado;
 	}
 	
-	
+
+	public List<TransactionItem> getItems() {
+		return this.items;
+	}
+
+	public void setItems(List<TransactionItem> items) {
+		this.items = items;
+	}
+
+
+
+	// Utility method
+	public void addItem(TransactionItem item) {
+        items.add(item);
+        item.setTransaction(this);
+    }
 }

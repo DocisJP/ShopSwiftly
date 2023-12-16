@@ -1,11 +1,9 @@
 package c15_23_m_java_react.com.product_service.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name="products", schema = "products_db")
