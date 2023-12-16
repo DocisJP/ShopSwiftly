@@ -14,7 +14,7 @@ import javax.persistence.GenerationType;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "tablename", schema = "users_db")
+@Table(name = "users", schema = "users_db")
 public class UserEntity {
 
 	@Id

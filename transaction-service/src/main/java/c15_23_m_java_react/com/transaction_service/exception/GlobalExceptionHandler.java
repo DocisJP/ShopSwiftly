@@ -17,9 +17,10 @@ public class GlobalExceptionHandler {
 	}
 	
 	@ExceptionHandler(TransactionNotFoundException.class)
-	public ResponseEntity<?> handleUserNotFoundException(TransactionNotFoundException e){
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());		
-	}
+    public ResponseEntity<ErrorResponse> handleTransactionNotFoundException(TransactionNotFoundException e) {
+        ErrorResponse errorResponse = new ErrorResponse("Transaction Not Found", e.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);      
+    }
 	
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	public ResponseEntity<String> handleDataIntegrityViolation(DataIntegrityViolationException ex){
@@ -36,4 +37,15 @@ public class GlobalExceptionHandler {
 		return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access dnied: " + ex.getMessage());
 	}
 	
+	@ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleProductNotFoundException(ProductNotFoundException e){
+        ErrorResponse errorResponse = new ErrorResponse("Product No Encontrado", e.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);      
+    }
+
+	@ExceptionHandler(UserNotFoundException.class)
+	public ResponseEntity<ErrorResponse> handleUserNotFoundException(UserNotFoundException e){
+		ErrorResponse errorResponse = new ErrorResponse("Usuario no encontrado", e.getMessage());
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+	}
 }

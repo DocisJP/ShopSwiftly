@@ -1,13 +1,14 @@
-# See http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 spring:
   application:
     name: product-service
-  thymeleaf.cache: false
-  main.show-banner: false
+  thymeleaf:
+    cache: false
+  main:
+    show-banner: false
   server:
-  port: ${SERVER_PORT:8085}
+    port: ${SERVER_PORT:8085}
   datasource:
-    url: jdbc:postgresql://transaction_db:5432/ShopSwiftly # Use the Docker Compose service name
+    url: ${SPRING_DATASOURCE_URL_TRANSACTIONSDB}
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
@@ -49,4 +50,4 @@ management:
 eureka:
   client:
     serviceUrl:
-      defaultZone: ${EUREKA_SERVER_URL} # Use the Docker Compose service name
+      defaultZone: ${EUREKA_SERVER_URL}

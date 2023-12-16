@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name="products")
+@Table(name="products", schema = "products_db")
 public class Product {
 
     @Id
@@ -47,8 +47,6 @@ public class Product {
 
     @NotNull
     private Double width;
-
-    //TODO: {private String imageLink} Buscar una forma de almacenar el link de una imagen
 
     @Column(length = 750)
     private String imageLink;
