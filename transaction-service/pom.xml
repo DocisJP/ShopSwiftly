@@ -38,6 +38,12 @@
 			<artifactId>spring-cloud-config-server</artifactId>
 		</dependency>
 
+        <!-- Spring Cloud Open Feign -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+
 		<!-- Spring Boot Starter Web, incluye Tomcat y spring-webmvc -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

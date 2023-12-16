@@ -50,6 +50,25 @@ services:
     networks:
       - backend-network
 
+  transaction-service:
+    build:
+      context: ./transaction-service
+      dockerfile: src/main/docker/Dockerfile
+    image: docisjp/transaction-service:latest
+    restart: always
+    ports:
+      - "8085:8085"
+    depends_on:
+      - eureka-server
+      - shopswiftly_db
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: ${EUREKA_SERVER_URL}
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    networks:
+      - backend-network
+
   shopswiftly_db:
     image: "postgres:latest"
     restart: always
@@ -84,6 +103,7 @@ services:
       JWT_EXPIRATION_MS: ${JWT_EXPIRATION_MS}
       USER_SERVICE_URL: ${USER_SERVICE_URL}
       PRODUCT_SERVICE_URL: ${PRODUCT_SERVICE_URL}
+      # TRANSACTION_SERVICE_URL:
     networks:
       - backend-network
 

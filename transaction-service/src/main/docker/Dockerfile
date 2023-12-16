@@ -2,7 +2,7 @@
 FROM openjdk:17-jdk-slim
 
 # Update package list, install netcat, and clean up
-RUN apt-get update && apt-get install -y netcat && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y netcat curl && rm -rf /var/lib/apt/lists/*
 
 # Create a volume pointing to /tmp
 VOLUME /tmp

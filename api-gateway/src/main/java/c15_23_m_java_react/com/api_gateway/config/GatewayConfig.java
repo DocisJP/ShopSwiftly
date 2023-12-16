@@ -19,6 +19,9 @@ public class GatewayConfig {
     @Value("${product-service.url}")
     private String productServiceURL; 
     
+    
+    @Value("${transaction-service.url}")
+    private String transactionServiceURL;
 
     @Bean
     RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
@@ -26,9 +29,11 @@ public class GatewayConfig {
                 .route("user_route", r -> r.path("/users/**")
                         .uri(userServiceURL)) 
                 
-                        .route("product_route", r -> r.path("/products/**") 
-                        .uri(productServiceURL))  
-                        
+                .route("product_route", r -> r.path("/products/**") 
+                        .uri(productServiceURL))
+
+                .route("transaction_route", r -> r.path("/transactions/**") 
+                        .uri(productServiceURL))
                 // ... other routes for each microservice
                 .build();
     }

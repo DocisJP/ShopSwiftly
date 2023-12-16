@@ -19,6 +19,9 @@ user-service:
 product-service:
   url: ${PRODUCT_SERVICE_URL}
 
+transaction-service:
+  url: ${TRANSACTION_SERVICE_URL}
+
 eureka:
   client:
     serviceUrl:

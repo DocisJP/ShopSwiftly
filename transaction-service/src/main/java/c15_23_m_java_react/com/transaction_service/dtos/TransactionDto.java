@@ -1,12 +1,29 @@
 
 package c15_23_m_java_react.com.transaction_service.dtos;
 
-import c15_23_m_java_react.com.transaction_service.entitys.TransactionEntity;
-import javax.validation.constraints.NotBlank;
 
 
 public class TransactionDto {
-	
+
+    private ProductDto productoDto;
+
+    private UserDto userDto;
+
+    public ProductDto getProductoDto() {
+        return this.productoDto;
+    }
+
+    public void setProductoDto(ProductDto productoDto) {
+        this.productoDto = productoDto;
+    }
+
+	public UserDto getuserDto() {
+        return this.userDto;
+    }
+
+    public void setProductoDto(UserDto userDto) {
+        this.userDto = userDto;
+    }
 }
 
 

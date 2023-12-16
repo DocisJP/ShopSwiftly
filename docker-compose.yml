@@ -59,6 +59,21 @@ services:
     networks:
       - backend-network
 
+  transaction-service:
+    <<: *common-env
+    build:
+      context: ./transaction-service
+      dockerfile: src/main/docker/Dockerfile
+    image: docisjp/transaction-service:latest
+    restart: always
+    ports:
+      - "8085:8085"
+    depends_on:
+      - eureka-server
+      - shopswiftly_db
+    networks:
+      - backend-network
+
   api-gateway:
     <<: *common-env
     build:
