@@ -76,6 +76,18 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- SLF4J API -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.30</version>
+        </dependency>
+        <!-- Logback Classic -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+        </dependency>
 
 		<!-- Open API, para documentar las APIs -->
 		<dependency>
@@ -119,12 +131,6 @@
 			<artifactId>postgresql</artifactId>
 			<version>42.2.19</version>
 		</dependency>
-
-        <!-- JPA starter  -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
 
         <!-- ModelMapper -->
         <dependency>
