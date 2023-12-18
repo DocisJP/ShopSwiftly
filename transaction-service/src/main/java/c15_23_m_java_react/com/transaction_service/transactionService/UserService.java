@@ -7,9 +7,9 @@ import c15_23_m_java_react.com.transaction_service.dtos.UserDto;
 
 @Service
 public class UserService {
+    
     private final UserClient userClient;
 
-    
     public UserService(UserClient userClient) {
         this.userClient = userClient;
     }
