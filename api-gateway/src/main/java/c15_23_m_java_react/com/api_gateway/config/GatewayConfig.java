@@ -33,7 +33,7 @@ public class GatewayConfig {
                         .uri(productServiceURL))
 
                 .route("transaction_route", r -> r.path("/transactions/**") 
-                        .uri(productServiceURL))
+                        .uri(transactionServiceURL))
                 // ... other routes for each microservice
                 .build();
     }

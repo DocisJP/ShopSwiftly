@@ -1,8 +1,8 @@
 version: "3.8"
 
-x-common-env: &common-env
-  env_file: .env.dev # Uncomment this and comment the one bellow to use production profile.
-  # env_file: .env.prod #Uncomment this and comment the one above to use production profile.
+x-common-env:
+  &common-env #env_file: .env.dev # Uncomment this and comment the one bellow to use production profile.
+  env_file: .env.prod #Uncomment this and comment the one above to use production profile.
 
 services:
   eureka-server:

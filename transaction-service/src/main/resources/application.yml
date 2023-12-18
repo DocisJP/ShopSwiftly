@@ -30,12 +30,14 @@ debug: true
 
 logging:
   level:
+    root: DEBUG
+    c15_23_m_java_react.com.transaction_service: DEBUG
     org:
       hibernate:
         SQL: DEBUG
         type:
           descriptor:
-            sql: trace
+            sql: TRACE
 
 springdoc:
   swagger-ui:
