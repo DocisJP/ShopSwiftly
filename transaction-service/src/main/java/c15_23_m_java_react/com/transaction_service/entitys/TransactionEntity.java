@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
@@ -42,6 +43,7 @@ public class TransactionEntity {
 	private Boolean estado;
 
 	@OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private List <TransactionItem> items = new ArrayList<>();
 
 

@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "transaction_items", schema = "transactions_db")
@@ -19,6 +20,7 @@ public class TransactionItem {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="transaction_id", nullable = false)
+    @JsonBackReference
     private TransactionEntity transaction;
 
     @Column(name = "product_id")
