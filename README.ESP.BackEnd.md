@@ -1,10 +1,45 @@
 # Plataforma SaaS ShopSwiftly
 
+- [Introducción y Visión General](#introducción-y-visión-general)
+- [¿Qué es una Plataforma SaaS?](#qué-es-una-plataforma-saas)
+- [Puntos de Venta Únicos](#puntos-de-venta-únicos)
+  - [API Gateway](#api-gateway)
+  - [Auth Service](#auth-service)
+  - [Config Server](#config-server)
+  - [Eureka Server](#eureka-server)
+  - [Servicios de Lógica Empresarial Core](#servicios-de-lógica-empresarial-core)
+- [Diseño de Bases de Datos](#diseño-de-bases-de-datos)
+- [Contenedorización y Configuración del Entorno](#contenedorización-y-configuración-del-entorno)
+- [Estructura del Repositorio](#estructura-del-repositorio)
+- [Primeros Pasos](#primeros-pasos)
+  - [Configuración Local](#configuración-local)
+  - [Pre-requisitos](#pre-requisitos)
+- [Uso](#uso)
+- [Pipeline de CI/CD](#pipeline-de-cicd)
+  - [Verificaciones Específicas](#verificaciones-específicas)
+- [Manejo de Errores](#manejo-de-errores)
+- [Script de Inicialización: init-db.sh](#script-de-inicialización-init-dbsh)
+  - [Ejecución en Linux](#ejecución-en-linux)
+  - [Ejecución con WSL](#ejecución-con-wsl)
+- [Recursos Adicionales](#recursos-adicionales)
+- [Microservicios Desplegados](#microservicios-desplegados)
+
 Para leer este documento en inglés, haga clic [aquí](README.EN.BackEnd.md).
 
 ## Introducción y Visión General
 
-ShopSwiftly ofrece una plataforma de comercio electrónico personalizable como servicio, diseñada para empoderar a los clientes con sus propias soluciones de venta a medida. La plataforma aprovecha una arquitectura de microservicios para permitir un desarrollo rápido, escalabilidad a demanda y eficiencia en costos.
+## ¿Qué es una Plataforma SaaS?
+
+SaaS, o Software como Servicio, es un modelo de entrega de aplicaciones de software donde el software se aloja en la nube y se accede a través de internet. Es un modelo basado en suscripción donde los usuarios pagan por usar el software sin necesidad de instalación, mantenimiento ni altos costos iniciales. Las plataformas SaaS son altamente escalables, lo que significa que pueden crecer con un negocio y son accesibles desde cualquier lugar con una conexión a internet.
+
+Las ventajas clave de una plataforma SaaS incluyen:
+
+- **Accesibilidad**: Los usuarios pueden acceder al software desde cualquier dispositivo con conexión a internet.
+- **Costo-Efectividad**: Reduce la necesidad de inversiones iniciales grandes en infraestructura de TI y mantenimiento continuo.
+- **Escalabilidad**: Se escala fácilmente para acomodar el crecimiento de usuarios y las necesidades cambiantes del negocio.
+- **Actualizaciones Automáticas**: El proveedor de software gestiona las actualizaciones y mejoras, asegurando que los usuarios siempre tengan acceso a las últimas funcionalidades y actualizaciones de seguridad.
+
+En el contexto de ShopSwiftly, nuestra plataforma SaaS proporciona una solución de comercio electrónico personalizable, permitiendo a los clientes desplegar y gestionar sus tiendas en línea con facilidad y eficiencia.
 
 ## Puntos de Venta Únicos
 
@@ -78,7 +113,7 @@ docker-compose build <service-name>
 docker-compose up <service-name>
 ```
 
-## Prerrequisitos
+## Pre-requisitos
 
 Maven
 Entorno Linux con Docker o Docker sobre WSL
@@ -87,18 +122,60 @@ Entorno Linux con Docker o Docker sobre WSL
 
 Aunque la plataforma no está abierta para colaboración externa, ofrece una API completa documentada dentro de cada microservicio.
 
-## CI/CD
+### CI/CD Pipeline
 
-Utilizamos GitHub Actions para automatizar.
-Actualmente controla que este todo correcto con el deploy a DockerHub. Entonces, cuando suban algo a la rama que tengan, va a hacer los chequeos de manera automatica y va a permitir o no los merges al main, donde ahí se actualiza la imagen en DockerHub.
-Desde DockerHub se despliega (manualmente) a Render.
-¿Que comprueba especificamente?
+Nuestro pipeline de CI/CD es gestionado a través de GitHub Actions y supervisa la integridad de los despliegues a DockerHub. Cualquier cambio en su rama desencadena verificaciones automáticas que determinan la posibilidad de fusionarse con la rama principal. Una vez fusionado, la imagen en DockerHub se actualiza. Luego se requiere un despliegue manual desde DockerHub a Render.
 
-1. Que Java Maven compile todo y construya correctamente los paquetes.
-2. Que se generen las imagenes correctamente con docker-compose.
-3. Que se apliquen los secrets.
-4. Que se desplieguen en el orden correcto.
+### Verificaciones Específicas
 
-### Manejo de errores
+1. La compilación y creación de paquetes de Java Maven son exitosas.
+2. Docker-compose genera correctamente las imágenes.
+3. Los secretos se aplican de manera adecuada.
+4. Los servicios se despliegan en la secuencia correcta.
 
-La pipeline tiene un manejo de errores. Se suspende automaticamente cuando encuentre el primer error y tiene los logs listos, para que chequear donde esta fallando.
+## Manejo de Errores
+
+El pipeline está equipado con protocolos de gestión de errores que detienen el proceso al detectar el primer error. Los registros están disponibles inmediatamente para una rápida resolución de problemas.
+
+## Script de Inicialización: init-db.sh
+
+El script `init-db.sh` prepara los esquemas de base de datos iniciales necesarios para el funcionamiento de los microservicios. Ejecuta las siguientes acciones:
+
+1. Se autentica como el usuario de PostgreSQL.
+2. Crea esquemas separados para los datos de usuarios, productos y transacciones dentro de la base de datos PostgreSQL.
+
+### Ejecución en Linux
+
+Para ejecutar el script en un entorno Linux, navegue al directorio del script y ejecute:
+
+```bash
+bash init-db.sh
+```
+
+### Ejecución con WSL
+
+Para la ejecución dentro del Subsistema de Windows para Linux (WSL), abra su terminal de WSL, navegue al directorio del script y ejecute:
+
+```bash
+bash init-db.sh
+```
+
+Asegúrese de que PostgreSQL esté instalado y en funcionamiento en su entorno antes de ejecutar el script.
+
+## Recursos Adicionales
+
+Para leer la documentación especifica de un microservicio, seleccione uno de estos links:
+
+- [Documentación del Servicio de Usuarios (Español)](user-service/README.ESP.User-Service.md)
+- [Documentación del Servicio de Productos (Español)](product-service/README.ESP.Product-service.md)
+- [Documentación del Servicio de Transacciones (Español)](transaction-service/README.ESP.Transaction-service.md)
+
+## Microservicios Desplegados
+
+Aquí están los enlaces a todos nuestros microservicios desplegados:
+
+- [Servicio de Transacciones](https://transaction-service-y71o.onrender.com)
+- [Servicio de Productos](https://product-service-uvfl.onrender.com)
+- [API Gateway](https://api-gateway-c1y5.onrender.com)
+- [Servicio de Usuarios](https://shopswiftly-user-service-com.onrender.com)
+- [Servidor Eureka](https://eureka-server-2wjn.onrender.com)

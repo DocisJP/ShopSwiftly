@@ -1,10 +1,44 @@
 # ShopSwiftly SaaS Platform
 
+- [Introduction and Overview](#introduction-and-overview)
+- [What is a SaaS Platform?](#what-is-a-saas-platform)
+- [Unique Selling Points](#unique-selling-points)
+  - [API Gateway](#api-gateway)
+  - [Auth Service](#auth-service)
+  - [Config Server](#config-server)
+  - [Eureka Server](#eureka-server)
+  - [Core Business Logic Services](#core-business-logic-services)
+- [Database Design](#database-design)
+- [Containerization and Environment Configuration](#containerization-and-environment-configuration)
+- [Repository Structure](#repository-structure)
+- [Getting Started](#getting-started)
+  - [Local Setup](#local-setup)
+  - [Prerequisites](#prerequisites)
+- [CI/CD Pipeline](#cicd-pipeline)
+  - [Specific Checks](#specific-checks)
+- [Error Handling](#error-handling)
+- [Initialization Script: init-db.sh](#initialization-script-init-dbsh)
+  - [Executing on Linux](#executing-on-linux)
+  - [Executing with WSL](#executing-with-wsl)
+- [Additional Resources](#additional-resources)
+- [Deployed Microservices](#deployed-microservices)
+
 To read this document in Spanish, click [here](README.ESP.BackEnd.md).
 
 ## Introduction and Overview
 
-ShopSwiftly offers a customizable e-commerce platform as a service, designed to empower clients with their own tailored selling solutions. The platform leverages a microservices architecture to enable rapid development, on-demand scalability, and cost efficiency.
+## What is a SaaS Platform?
+
+SaaS, or Software as a Service, is a delivery model for software applications where the software is hosted in the cloud and accessed via the internet. It's a subscription-based model where users pay to use the software without the need for installation, maintenance, or high upfront costs. SaaS platforms are highly scalable, which means they can grow with a business, and they're accessible from anywhere with an internet connection.
+
+The key advantages of a SaaS platform include:
+
+- **Accessibility**: Users can access the software from any device with an internet connection.
+- **Cost-Effectiveness**: Reduces the need for heavy upfront investments in IT infrastructure and ongoing maintenance.
+- **Scalability**: Easily scales to accommodate growing user numbers and changing business needs.
+- **Automatic Updates**: The software provider manages updates and upgrades, ensuring users always have access to the latest features and security updates.
+
+In the context of ShopSwiftly, our SaaS platform provides a customizable e-commerce solution, enabling clients to deploy and manage their online stores with ease and efficiency.
 
 ## Unique Selling Points
 
@@ -80,18 +114,60 @@ docker-compose up <service-name>
 - Maven
 - Linux environment with Docker or Docker on WSL
 
-## CI/CD
+## CI/CD Pipeline
 
-We use GitHub Actions for automation.
-It currently ensures everything is correct with the deployment to DockerHub. So, when something is pushed to your branch, it automatically performs checks and allows or disallows merges into the main branch, where the image on DockerHub gets updated.
-Deployment from DockerHub to Render is done manually.
-What does it specifically check?
+Our CI/CD pipeline is managed via GitHub Actions and oversees the integrity of deployments to DockerHub. Any push to your branch triggers automatic checks that determine the permissibility of merging into the main branch. Once merged, the DockerHub image is updated. Manual deployment from DockerHub to Render is then required.
 
-That Java Maven compiles everything and builds the packages correctly.
-That the images are generated correctly with docker-compose.
-That the secrets are applied.
-That the deployments are executed in the correct order.
+### Specific Checks
 
-### Error Handling
+1. Java Maven compilation and package building are successful.
+2. Docker-compose correctly generates images.
+3. Secrets are appropriately applied.
+4. Services are deployed in the correct sequence.
 
-The pipeline has error management built-in. It automatically suspends upon encountering the first error and has logs ready for you to check where the failure occurred.
+## Error Handling
+
+The pipeline is equipped with error management protocols that halt the process at the first detected error. Logs are made available immediately for quick troubleshooting.
+
+## Initialization Script: init-db.sh
+
+The `init-db.sh` script sets up the initial database schemas necessary for the microservices to function. It runs the following actions:
+
+1. Authenticates as the PostgreSQL user.
+2. Creates separate schemas for user, product, and transaction data within the PostgreSQL database.
+
+### Executing on Linux
+
+To execute the script on a Linux environment, navigate to the script's directory and run:
+
+```bash
+bash init-db.sh
+```
+
+### Executing with WSL
+
+For execution within Windows Subsystem for Linux (WSL), open your WSL terminal, navigate to the script's directory, and execute:
+
+```bash
+bash init-db.sh
+```
+
+Ensure that PostgreSQL is installed and running in your environment before executing the script.
+
+## Additional Resources
+
+To read the documentation of a specific microservice, select one:
+
+- [User Service Documentation (English)](user-service/README.EN.User-Service.md)
+- [Product Service Documentation (English)](product-service/README.EN.Product-service.md)
+- [Transaction Service Documentation (English)](transaction-service/Readme.EN.Transaction-service.md)
+
+## Deployed Microservices
+
+Here are the links to all our deployed microservices:
+
+- [Transaction Service](https://transaction-service-y71o.onrender.com)
+- [Product Service](https://product-service-uvfl.onrender.com)
+- [API Gateway](https://api-gateway-c1y5.onrender.com)
+- [User Service](https://shopswiftly-user-service-com.onrender.com)
+- [Eureka Server](https://eureka-server-2wjn.onrender.com)
