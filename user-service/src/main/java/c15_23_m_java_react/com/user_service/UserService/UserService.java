@@ -56,10 +56,6 @@ public class UserService {
 	    userRepository.deleteById(id);
 	}
 
-	
-	
-	
-	
 	public boolean authenticateUser(String username, String password) 
 	{
         UserEntity user = userRepository.findByUsername(username);
@@ -69,15 +65,7 @@ public class UserService {
         }
         return false;
     }
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		
 	public UserEntity getUserbyUsername(String username)
 	{
 		return userRepository.findByUsername(username);

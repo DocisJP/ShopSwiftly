@@ -8,11 +8,11 @@ ShopSwiftly ofrece una plataforma de comercio electrónico personalizable como s
 
 ## Puntos de Venta Únicos
 
-### Monorepo Escalable: Simplifica el escalado a través de un monorepo administrado por Docker-compose.
+Monorepo Escalable: Simplifica el escalado a través de un monorepo administrado por Docker-compose.
 
-### Ágil y Económico: Facilita las prácticas de desarrollo ágil y minimiza los costos a largo plazo.
+Ágil y Económico: Facilita las prácticas de desarrollo ágil y minimiza los costos a largo plazo.
 
-### Terminación SSL y Agregación de Solicitudes: Mejora la seguridad y el rendimiento a través de la API Gateway.
+Terminación SSL y Agregación de Solicitudes: Mejora la seguridad y el rendimiento a través de la API Gateway.
 
 ## Descripción de Microservicios
 
