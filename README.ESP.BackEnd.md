@@ -23,6 +23,7 @@
   - [Ejecución con WSL](#ejecución-con-wsl)
 - [Recursos Adicionales](#recursos-adicionales)
 - [Microservicios Desplegados](#microservicios-desplegados)
+- [Conctacar con los Desarrolladores](#conctacar-con-los-desarrolladores)
 
 Para leer este documento en inglés, haga clic [aquí](README.EN.BackEnd.md).
 
@@ -179,3 +180,23 @@ Aquí están los enlaces a todos nuestros microservicios desplegados:
 - [API Gateway](https://api-gateway-c1y5.onrender.com)
 - [Servicio de Usuarios](https://shopswiftly-user-service-com.onrender.com)
 - [Servidor Eureka](https://eureka-server-2wjn.onrender.com)
+
+## Conctacar con los Desarrolladores
+
+### Teach Lead, Arquitecto y DevOps: Juan Pablo Godoy
+
+- Contacto: Godoypablojuan@gmail.com
+- GitHub: @DocisJP
+- Linkedin: [Juan Pablo Godoy](https://www.linkedin.com/in/godoypablojuan/)
+
+### Developer: Lucas Von Elm
+
+- Contacto: lucasvonelm@gmail.com
+- GitHub: @xlucasve
+- Linkedin: [Lucas Von Elm](https://www.linkedin.com/in/lucasvonelm/)
+
+### Developer: Leon Asturizaga
+
+- Contacto: leonasturizaga@gmail.com
+- Github: @leonasturizaga
+- Linkedin: [Leon Asturizaga](https://www.linkedin.com/in/leon-asturizaga-94a80377/)
