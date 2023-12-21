@@ -22,8 +22,9 @@
   - [Executing with WSL](#executing-with-wsl)
 - [Additional Resources](#additional-resources)
 - [Deployed Microservices](#deployed-microservices)
+- [Contact the Devs](#contact-the-devs)
 
-To read this document in Spanish, click [here](README.ESP.BackEnd.md).
+  To read this document in Spanish, click [here](README.ESP.BackEnd.md).
 
 ## Introduction and Overview
 
@@ -171,3 +172,23 @@ Here are the links to all our deployed microservices:
 - [API Gateway](https://api-gateway-c1y5.onrender.com)
 - [User Service](https://shopswiftly-user-service-com.onrender.com)
 - [Eureka Server](https://eureka-server-2wjn.onrender.com)
+
+## Contact the Devs:
+
+### Teach Lead, Architect and DevOps: Juan Pablo Godoy
+
+- Contact: Godoypablojuan@gmail.com
+- GitHub: @DocisJP
+- Linkedin: [Juan Pablo Godoy](https://www.linkedin.com/in/godoypablojuan/)
+
+### Developer: Lucas Von Elm
+
+- Contact: lucasvonelm@gmail.com
+- GitHub: @xlucasve
+- Linkedin: [Lucas Von Elm](https://www.linkedin.com/in/lucasvonelm/)
+
+### Developer: Leon Asturizaga
+
+- Contact: leonasturizaga@gmail.com
+- Github: @leonasturizaga
+- Linkedin: [Leon Asturizaga](https://www.linkedin.com/in/leon-asturizaga-94a80377/)
