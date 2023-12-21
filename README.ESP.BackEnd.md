@@ -65,7 +65,7 @@ Un gestor centralizado de configuración, el Config Server proporciona a los mic
 
 ### Eureka Server
 
-Actuando como el registro de descubrimiento de servicios, permite que los microservicios localicen y se comuniquen entre sí de manera dinámica.
+Actuando como el registro de descubrimiento de servicios, permite que los microservicios localicen y se comuniquen entre sí de manera dinámica, además maneja el balanceo de carga.
 
 ### Servicios de Lógica Empresarial Core
 

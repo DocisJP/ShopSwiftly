@@ -61,7 +61,7 @@ A centralized configuration manager, the Config Server provides microservices wi
 
 ### Eureka Server
 
-Serving as the service discovery registry, it enables microservices to locate and communicate with one another dynamically.
+Serving as the service discovery registry, it enables microservices to locate and communicate with one another dynamically, while also taking care of load balancing.
 
 ## Core Business Logic Services
 
